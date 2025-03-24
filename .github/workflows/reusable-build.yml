@@ -11,7 +11,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository  # ✅ This must be here!
+        uses: actions/checkout@v3
+
       - name: Run Composite Action
-        uses: ./.github/actions/build-maven/action.yml
+        uses: ./.github/actions/build-maven  # ✅ Ensure correct path
         with:
           project-path: ${{ inputs.project-path }}
+
+      - name: Upload Build Artifacts (JAR File)
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-maven-app-artifact
+          path: ${{ inputs.project-path }}/target/*.jar
+
