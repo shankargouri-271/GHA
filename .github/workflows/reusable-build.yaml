@@ -26,7 +26,7 @@ jobs:
 
 
       - name: Upload Build Artifacts (JAR File)
-        uses: actions/upload-artifact@3f35d11bcafd769dbc18cf91faac07d8720bb64b
+        uses: actions/upload-artifact@v3
         with:
           name: java-maven-app-artifact
           path: target/*.jar
