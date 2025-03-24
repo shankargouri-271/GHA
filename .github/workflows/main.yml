@@ -1,15 +1,20 @@
-name: "Main Workflow - Build and Test Maven Project"
+name: "Reusable - Build and Test Maven Project"
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      project-path:
+        required: true
+        type: string
 
 jobs:
-  call-reusable:
-    uses: ./.github/workflows/reusable-build.yml
-    with:
-      project-path: "GHA"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository  # ✅ This must be here!
+        uses: actions/checkout@v3
+
+      - name: Run Composite Action
+        uses: ./.github/actions/build-maven/action.yml  # ✅ Ensure correct path
+        with:
+          project-path: ${{ inputs.project-path }}
