@@ -1,4 +1,4 @@
-name: Main Build Workflow
+name: Build and Test Maven Project
 
 on:
   push:
@@ -9,8 +9,7 @@ on:
       - main
 
 jobs:
-  call-reusable-workflow:
-    uses: ./.github/workflows/reusable-build.yaml  # Calls the reusable workflow
+  call-reusable:
+    uses: ./.github/workflows/reusable-build.yaml
     with:
-      java-version: "17"
-      project-path: "GHA"  # Path to the project in the repo
+      project-path: "GHA"
