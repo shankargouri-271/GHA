@@ -31,3 +31,9 @@ jobs:
         with:
           name: java-maven-app-artifact
           path: ${{ inputs.project-path }}/target/*.jar
+
+
+      - name: Enable Debugging
+        run: |
+          echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+
