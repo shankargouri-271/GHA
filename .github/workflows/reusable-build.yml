@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Composite Action
-        uses: ./.github/actions/build-maven
+        uses: ./.github/actions/build-maven/action.yml
         with:
           project-path: ${{ inputs.project-path }}
