@@ -1,4 +1,4 @@
-name: Build and Test Maven Project
+name: Main Build Workflow
 
 on:
   push:
@@ -9,25 +9,8 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: maven
-
-      - name: Build with Maven
-        run: mvn clean package
-
-      - name: Upload Build Artifacts (JAR File)
-        uses: actions/upload-artifact@v3
-        with:
-          name: java-maven-app-artifact
-          path: target/*.jar
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable-build.yaml  # Calls the reusable workflow
+    with:
+      java-version: "17"
+      project-path: "GHA"  # Path to the project in the repo
