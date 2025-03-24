@@ -12,10 +12,6 @@ on:
         description: "Path to the Java Maven project"
         required: true
         type: string
-    outputs:
-      artifact-name:
-        description: "Name of the uploaded artifact"
-        value: java-maven-app-artifact
 
 jobs:
   build:
@@ -35,9 +31,3 @@ jobs:
       - name: Build with Maven
         working-directory: ${{ inputs.project-path }}  # Navigate to the project directory
         run: mvn clean package
-
-      - name: Upload Build Artifacts (JAR File)
-        uses: actions/upload-artifact@v3
-        with:
-          name: java-maven-app-artifact
-          path: ${{ inputs.project-path }}/target/*.jar
