@@ -1,17 +1,10 @@
-name: Reusable Maven Build Workflow
-
 on:
-  workflow_call:  # Allows this workflow to be called from other workflows
-    inputs:
-      java-version:
-        description: "Java version to use"
-        required: false
-        default: "17"
-        type: string
-      project-path:
-        description: "Path to the Java Maven project"
-        required: true
-        type: string
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -21,13 +14,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK ${{ inputs.java-version }}
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: ${{ inputs.java-version }}
+          java-version: '17'
           cache: maven
 
       - name: Build with Maven
-        working-directory: ${{ inputs.project-path }}  # Navigate to the project directory
         run: mvn clean package
+
+      - name: Upload Build Artifacts (JAR File)
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-maven-app-artifact
+          path: target/*.jar
