@@ -1,3 +1,5 @@
+name: "Main Workflow - Build and Test Maven Project"
+
 on:
   push:
     branches:
@@ -8,6 +10,6 @@ on:
 
 jobs:
   call-reusable:
-    uses: ./.github/workflows/reusable-build.yaml
+    uses: ./.github/workflows/reusable-build.yml
     with:
       project-path: "GHA"
